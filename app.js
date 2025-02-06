@@ -3,16 +3,21 @@
 //Array para agregar a los amigos que el usuario ingrese
 let arrayAmigos = [];
 let lista = document.getElementById('listaAmigos');
+let limiteAmigos = 10;
 
 //función que se encarga de agregar a los amigos al array arrayAmigos
 function agregarAmigo(){
     let amigo = document.getElementById('amigo').value;
 
-    if (amigo === '') {
-        alert("Por favor, inserte un nombre.");
+    if (arrayAmigos.length === limiteAmigos){
+        alert(`¡Has llegado a la cantidad máxima de amigos que puedes añadir`); 
     } else {
-        arrayAmigos.push(amigo);
-        actualizarLista();
+        if (amigo === '') {
+            alert("Por favor, inserte un nombre.");
+        } else {
+            arrayAmigos.push(amigo);
+            actualizarLista();
+        }
     }
 
     limpiarCampo();
@@ -21,14 +26,11 @@ function agregarAmigo(){
 //función que limpia el input
 function limpiarCampo(){
     document.querySelector('#amigo').value = '';
-
-    /*let valorCampo = document.getElementById('amigo');
-    valorCampo.value = '';*/
 }
 
 //función para actualizar el arrayAmigos 
 function actualizarLista(){
-    lista.innerHTML = '';
+    ocultarLista();
 
     //ciclo que crea un li dentro de "lista" por cada amigo que se ingrese
     for (let x = 0; x < arrayAmigos.length; x++) {
@@ -39,8 +41,9 @@ function actualizarLista(){
 }
 
 function sortearAmigo(){
+    
     if (arrayAmigos.length === 0){
-        alert('Aún no haz añadido a ningun amigo.');
+        alert('Aún no has añadido a ningun amigo.');
     } else {
         let valorResultado = document.getElementById('resultado');
         let indice = Math.floor(Math.random()*arrayAmigos.length);
@@ -48,5 +51,9 @@ function sortearAmigo(){
         valorResultado.innerHTML = `El amigo secreto sorteado es: ${arrayAmigos[indice]}`;
     }
 
+    ocultarLista();
+}
+
+function ocultarLista(){
     lista.innerHTML = '';
 }
